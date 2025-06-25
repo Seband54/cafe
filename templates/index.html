@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluador de Calidad de Café</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #2e4a62;
+            text-align: center;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #2e8b57;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #246f47;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #2e4a62;
+        }
+
+        p {
+            font-size: 1.1em;
+            background-color: #eef;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Evaluador de Calidad de Café</h1>
+
+    <form method="post">
+        <label>Acidez (pH):
+            <input type="number" name="acidez" step="0.1" min="0" max="8" required>
+        </label>
+        <label>Cafeína (%):
+            <input type="number" name="cafeina" step="0.1" min="0" max="3" required>
+        </label>
+        <label>Humedad (%):
+            <input type="number" name="humedad" step="0.1" min="0" max="12" required>
+        </label>
+        <label>Aroma (1-10):
+            <input type="number" name="aroma" step="0.1" min="0" max="10" required>
+        </label>
+        <button type="submit">Evaluar</button>
+    </form>
+
+    {% if resultado %}
+        <h2>Resultado:</h2>
+        <p><strong>Calidad:</strong> {{ resultado.calidad }}%</p>
+        <p><strong>Categoría:</strong> {{ resultado.categoria }}</p>
+    {% endif %}
+</body>
+</html>
