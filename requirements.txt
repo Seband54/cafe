@@ -3,4 +3,4 @@ scikit-fuzzy
 matplotlib
 numpy
 scipy
-network
+networkx
