@@ -46,8 +46,6 @@ reglas = [
     ctrl.Rule(acidez['optima'] & cafeina['media'] & humedad['baja'] & aroma['bajo'], calidad['media']),
     ctrl.Rule(acidez['optima'] & cafeina['baja'] & humedad['media'] & aroma['medio'], calidad['media']),
     ctrl.Rule(acidez['optima'] & cafeina['media'] & humedad['alta'] & aroma['medio'], calidad['media']),
-    ctrl.Rule(acidez['alta'] & cafeina['media'] & humedad['media'] & aroma['medio'], calidad['media']),
-    ctrl.Rule(acidez['alta'] & cafeina['media'] & humedad['media'], calidad['media']),
 ]
 
 # Sistema (esto es clave)
