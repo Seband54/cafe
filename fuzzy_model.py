@@ -64,9 +64,6 @@ def evaluar_calidad_cafe(acidez_val, cafeina_val, humedad_val, aroma_val):
         simulador.compute()
         resultado = simulador.output['calidad']
 
-        if np.isnan(resultado):
-            return 0, "No evaluable"
-
         if resultado <= 40:
             categoria = "Baja"
         elif 40 < resultado <= 70:
