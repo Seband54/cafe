@@ -1,4 +1,3 @@
-
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
@@ -28,8 +27,8 @@ aroma['medio'] = fuzz.trimf(aroma.universe, [3, 5, 7])
 aroma['alto'] = fuzz.trimf(aroma.universe, [6, 8, 10])
 
 calidad['baja'] = fuzz.trimf(calidad.universe, [0, 25, 50])
-calidad['media'] = fuzz.trimf(calidad.universe, [30, 50, 70])
-calidad['alta'] = fuzz.trimf(calidad.universe, [60, 85, 100])
+calidad['media'] = fuzz.trimf(calidad.universe, [40, 60, 80])  # más centrada y más solapada
+calidad['alta'] = fuzz.trimf(calidad.universe, [70, 85, 100])
 
 # Reglas
 reglas = [
@@ -42,6 +41,13 @@ reglas = [
     ctrl.Rule(acidez['optima'] & cafeina['media'] & humedad['media'] & aroma['medio'], calidad['media']),
     ctrl.Rule(acidez['optima'] & cafeina['alta'] & humedad['baja'] & aroma['alto'], calidad['alta']),
     ctrl.Rule(acidez['optima'] & cafeina['baja'] & humedad['baja'] & aroma['medio'], calidad['media']),
+    ctrl.Rule(acidez['optima'] & cafeina['media'] & humedad['media'] & aroma['medio'], calidad['media']),
+    ctrl.Rule(acidez['optima'] & cafeina['alta'] & humedad['media'] & aroma['medio'], calidad['media']),
+    ctrl.Rule(acidez['optima'] & cafeina['media'] & humedad['baja'] & aroma['bajo'], calidad['media']),
+    ctrl.Rule(acidez['optima'] & cafeina['baja'] & humedad['media'] & aroma['medio'], calidad['media']),
+    ctrl.Rule(acidez['optima'] & cafeina['media'] & humedad['alta'] & aroma['medio'], calidad['media']),
+    ctrl.Rule(acidez['alta'] & cafeina['media'] & humedad['media'] & aroma['medio'], calidad['media']),
+    ctrl.Rule(acidez['alta'] & cafeina['media'] & humedad['media'], calidad['media']),
 ]
 
 # Sistema (esto es clave)
@@ -59,6 +65,9 @@ def evaluar_calidad_cafe(acidez_val, cafeina_val, humedad_val, aroma_val):
 
         simulador.compute()
         resultado = simulador.output['calidad']
+
+        if np.isnan(resultado):
+            return 0, "No evaluable"
 
         if resultado <= 40:
             categoria = "Baja"
