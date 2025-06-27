@@ -4,91 +4,132 @@
     <meta charset="UTF-8">
     <title>Evaluador de Calidad de Café</title>
     <style>
+        :root {
+            --color-fondo: #f4eee0;
+            --color-form: #fffdf7;
+            --color-acento: #6f4e37;  /* tono café */
+            --color-boton: #8b5e3c;
+            --color-hover: #6f4e37;
+            --color-resultado: #fff8ed;
+            --sombra: rgba(0, 0, 0, 0.1);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--color-fondo);
             color: #333;
-            padding: 40px;
+            padding: 40px 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .contenedor {
+            width: 100%;
             max-width: 600px;
-            margin: auto;
         }
 
         h1 {
-            color: #2e4a62;
+            color: var(--color-acento);
             text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
         }
 
         form {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: var(--color-form);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px var(--sombra);
+            transition: 0.3s;
         }
 
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            color: #444;
         }
 
         input[type="number"] {
             width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            margin-bottom: 12px;
+            padding: 10px;
+            margin-top: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 1em;
+            background-color: #fff;
         }
 
         button {
-            background-color: #2e8b57;
-            color: white;
-            padding: 10px 20px;
+            background-color: var(--color-boton);
+            color: #fff;
+            padding: 12px 20px;
             border: none;
             border-radius: 6px;
-            cursor: pointer;
             font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #246f47;
+            background-color: var(--color-hover);
         }
 
         h2 {
-            margin-top: 30px;
-            color: #2e4a62;
+            margin-top: 40px;
+            color: var(--color-acento);
+            font-size: 1.4em;
+            text-align: center;
         }
 
-        p {
+        .resultado {
+            background-color: var(--color-resultado);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px var(--sombra);
             font-size: 1.1em;
-            background-color: #eef;
-            padding: 10px;
-            border-radius: 6px;
         }
+
+        .resultado p {
+            margin: 10px 0;
+        }
+
+        label small {
+            font-size: 0.9em;
+            color: #666;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Evaluador de Calidad de Café</h1>
+    <div class="contenedor">
+        <h1>Evaluador de Calidad de Café</h1>
 
-    <form method="post">
-        <label>Acidez (pH):
-            <input type="number" name="acidez" step="0.1" min="0" max="8" required>
-        </label>
-        <label>Cafeína (%):
-            <input type="number" name="cafeina" step="0.1" min="0" max="3" required>
-        </label>
-        <label>Humedad (%):
-            <input type="number" name="humedad" step="0.1" min="0" max="12" required>
-        </label>
-        <label>Aroma (1-10):
-            <input type="number" name="aroma" step="0.1" min="0" max="10" required>
-        </label>
-        <button type="submit">Evaluar</button>
-    </form>
+        <form method="post">
+            <label>Acidez (pH) — <small>Rango: 0.0 a 8.0</small>
+                <input type="number" name="acidez" step="0.1" min="0" max="8" required>
+            </label>
+            <label>Cafeína (%) — <small>Rango: 0.0% a 3.0%</small>
+                <input type="number" name="cafeina" step="0.1" min="0" max="3" required>
+            </label>
+            <label>Humedad (%) — <small>Rango: 0% a 12%</small>
+                <input type="number" name="humedad" step="0.1" min="0" max="12" required>
+            </label>
+            <label>Aroma (1-10) — <small>Rango: 0 a 10</small>
+                <input type="number" name="aroma" step="0.1" min="0" max="10" required>
+            </label>
+            <button type="submit">Evaluar</button>
+        </form>
 
-    {% if resultado %}
-        <h2>Resultado:</h2>
-        <p><strong>Calidad:</strong> {{ resultado.calidad }}%</p>
-        <p><strong>Categoría:</strong> {{ resultado.categoria }}</p>
-    {% endif %}
+        {% if resultado %}
+            <h2>Resultado</h2>
+            <div class="resultado">
+                <p><strong>Calidad:</strong> {{ resultado.calidad }}%</p>
+                <p><strong>Categoría:</strong> {{ resultado.categoria }}</p>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
